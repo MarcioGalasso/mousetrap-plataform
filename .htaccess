@@ -1,0 +1,21 @@
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_php.c>
+    php_value upload_max_filesize 256M
+    php_value post_max_size 280M
+    php_value max_file_uploads 20
+    php_value max_execution_time 600
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Forçar HTTPS — SÓ DESCOMENTE ESTE BLOCO DEPOIS DE CONFIRMAR QUE O
+# CERTIFICADO SSL ESTÁ ATIVO E QUE https://mousetrap.com.br ABRE SEM ERRO.
+# Se subir isso antes do certificado estar ativo, o site fica inacessível.
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
